@@ -1162,7 +1162,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
 }
 .banner_txt{
 	font-size: 0.3rem;
-	color: #fff;
+	color: #999;
 	line-height: 0.46rem;
 	font-weight: bold;
 	padding: 0.2rem 0 0 0.3rem;
@@ -1182,7 +1182,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
 }
 #menber_tel{
 	font: 0.28rem;
-	color: #fff;
+	color: #999;
 	line-height: 0.5rem;
 	font-weight: normal;
 }

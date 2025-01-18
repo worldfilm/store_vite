@@ -1,11 +1,4 @@
-<script>
-import Header from '../components/Header.vue';
-export default {
-  components: {
-    Header
-  }
-};
-</script>
+
 <template>
      <Header/>  
     <div id="main">
@@ -34,62 +27,12 @@ export default {
         <div id="section2">
             <div id="main_category">
                 <ul id="product_list" class="clearfix">
-                    <li>
+                    <li v-for="item in item_list">
                         <div class="product_box">
-                            <router-link to=""><img src="../assets/images/product1.png"></router-link>
-                            <h2><router-link to="">雪顶巧克力慕斯冰</router-link></h2>
+                            <router-link to=""><img :src="'http://192.168.1.2:3000/'+item.src+'.png'"></router-link>
+                            <h2><router-link to="">{{item.name}}</router-link></h2>
                             <div class="clearfix">
-                                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
-                                <div class="product_car fr"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="product_box">
-                            <a><img src="../assets/images/product2.png"></a>
-                            <h2><a>雪顶巧克力慕斯冰</a></h2>
-                            <div class="clearfix">
-                                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
-                                <div class="product_car fr"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="product_box">
-                            <a><img src="../assets/images/product3.png"></a>
-                            <h2><a href="#">雪顶巧克力慕斯冰</a></h2>
-                            <div class="clearfix">
-                                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
-                                <div class="product_car fr"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="product_box">
-                            <a><img src="../assets/images/product4.png"></a>
-                            <h2><a href="#">雪顶巧克力慕斯冰</a></h2>
-                            <div class="clearfix">
-                                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
-                                <div class="product_car fr"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="product_box">
-                            <a><img src="../assets/images/product1.png"></a>
-                            <h2><a>雪顶巧克力慕斯冰</a></h2>
-                            <div class="clearfix">
-                                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
-                                <div class="product_car fr"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="product_box">
-                            <a><img src="../assets/images/product2.png"></a>
-                            <h2><a>雪顶巧克力慕斯冰</a></h2>
-                            <div class="clearfix">
-                                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
+                                <div class="product_price fl">￥<span class="product_mpney">{{item.price}}</span></div>
                                 <div class="product_car fr"></div>
                             </div>
                         </div>
@@ -129,3 +72,34 @@ export default {
         </ul>
     </div> 
 </template>
+<script >
+import Header from '../components/Header.vue';
+import { ref } from 'vue';
+import axios from 'axios';
+export default{
+    components: {
+    Header
+  },
+    setup(){
+        const item_list = ref([]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://192.168.1.2:3000/get_product_list');
+        item_list.value = response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+      return {
+        item_list
+      };
+    }
+}
+</script>
+<!-- <script setup >
+// import axios from 'axios';
+
+
+</script> -->

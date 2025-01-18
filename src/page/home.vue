@@ -21,29 +21,9 @@
               :modules="modules"
               class="mySwiper"
             >
-              <swiper-slide>
+              <swiper-slide v-for="item in list">
                 <li>
-                  <router-link to="#"><img src="../assets/images/img1.png" /></router-link>
-                </li>
-              </swiper-slide>
-              <swiper-slide>
-                <li>
-                  <router-link to="#"><img src="../assets/images/img2.jpg" /></router-link>
-                </li>
-              </swiper-slide>
-              <swiper-slide>
-                <li>
-                  <router-link to="#"><img src="../assets/images/img3.jpg" /></router-link>
-                </li>
-              </swiper-slide>
-              <swiper-slide>
-                <li>
-                  <router-link to="#"><img src="../assets/images/img4.jpg" /></router-link>
-                </li>
-              </swiper-slide>
-              <swiper-slide>
-                <li>
-                  <router-link to="#"><img src="../assets/images/img5.jpg" /></router-link>
+                  <router-link to="#"><img :src="item.src" /></router-link>
                 </li>
               </swiper-slide>
             </swiper>
@@ -112,42 +92,12 @@
           <div id="arrow_more"></div>
         </div>
         <ul id="product_list" class="clearfix">
-          <li>
+          <li v-for="item in item_list">
             <div class="product_box">
-              <router-link to="/productdetails"><img src="../assets/images/product1.png"></router-link>
-              <h2><router-link to="/productdetails">雪顶巧克力慕斯冰</router-link></h2>
+              <router-link to="/productdetails"><img :src="'http://192.168.1.2:3000/'+item.src+'.png'"></router-link>
+              <h2><router-link to="/productdetails">{{item.name}}</router-link></h2>
               <div class="clearfix">
-                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
-                <div class="product_car fr"></div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="product_box">
-              <router-link to="/productdetails"><img src="../assets/images/product2.png"></router-link>
-              <h2><router-link to="/productdetails">雪顶巧克力慕斯冰</router-link></h2>
-              <div class="clearfix">
-                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
-                <div class="product_car fr"></div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="product_box">
-              <router-link to="/productdetails"><img src="../assets/images/product3.png"></router-link>
-              <h2><router-link to="/productdetails">雪顶巧克力慕斯冰</router-link></h2>
-              <div class="clearfix">
-                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
-                <div class="product_car fr"></div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="product_box">
-              <router-link to="/productdetails"><img src="../assets/images/product4.png"></router-link>
-              <h2><router-link to="/productdetails">雪顶巧克力慕斯冰</router-link></h2>
-              <div class="clearfix">
-                <div class="product_price fl">￥<span class="product_mpney">9.00</span></div>
+                <div class="product_price fl">￥<span class="product_mpney">{{item.price}}</span></div>
                 <div class="product_car fr"></div>
               </div>
             </div>
@@ -177,22 +127,43 @@ import Header from '../components/Header.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import { ref } from 'vue';
+import axios from 'axios';
 export default {
+   data(){
+    return ({
+      list : [
+        {src: '/src/assets/images/img1.png',name:'爆炒肥肠'},
+        {src: '/src/assets/images/img2.jpg',name:'爆炒肥肠'},
+        {src: '/src/assets/images/img3.jpg',name:'爆炒肥肠'},
+        {src: '/src/assets/images/img4.jpg',name:'爆炒肥肠'},
+        {src: '/src/assets/images/img5.jpg',name:'爆炒肥肠'},
+        
+        ]
+    }
+  )
+},
   components: {
     Header, Swiper,
     SwiperSlide,
   },
   setup() {
-      // const onSwiper = (swiper) => {
-      //   console.log(swiper);
-      // };
-      // const onSlideChange = () => {
-      //   console.log('slide change');
-      // };
+    const item_list = ref([]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://192.168.1.2:3000/get_product_list');
+        item_list.value = response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
       return {
         // onSwiper,
         // onSlideChange,
-        modules: [Autoplay],
+        modules: [Autoplay],//自动轮播
+        item_list
       };
     },
 };
