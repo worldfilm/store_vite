@@ -20,6 +20,7 @@
 import Header from '../components/Header.vue';
 import { ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 export default {
   components: {
     Header, 
@@ -29,6 +30,7 @@ export default {
     const password = ref('');
     const confirmPassword = ref('');
     const verifyCode = ref('');
+    const router = useRouter();
     const getVerifyCode=async()=>{
       try {
           const response = await axios.get('http://192.168.1.2:3000/verifycode');
@@ -45,6 +47,7 @@ export default {
             password: password.value 
           });
           console.log('register success')
+          router.push('/personalcenter');
         } catch (error) {
           console.log('register error')
         }

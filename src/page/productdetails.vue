@@ -10,7 +10,7 @@ export default {
      <Header/> 
     <div id="main">
         <div id="section1">
-           <!-- <div id="slideBox" class="slideBox">
+           <div id="slideBox" class="slideBox">
                 <div class="bd">
                   <ul>
                     <li>
@@ -37,7 +37,7 @@ export default {
                     <div class="unit_price">￥<span>32.00</span></div>
                     <div class="number">剩余数量：<span>102</span></div>
                 </div>
-            </div>-->
+            </div>
         </div>
         <div id="section2">
             <div class="pro_content clearfix">

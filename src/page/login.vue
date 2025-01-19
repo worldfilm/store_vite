@@ -15,6 +15,9 @@
 import Header from '../components/Header.vue';
 import { ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+console.log(this)
 export default {
   components: {
     Header, 
@@ -23,6 +26,7 @@ export default {
     const username=ref('')
     const password=ref('')
     const loginStatus = ref(null);
+    const router = useRouter();
       const  handleLogin = async()=>{
         console.log('click login')
         try {
@@ -31,7 +35,10 @@ export default {
             password: password.value 
           });
           loginStatus.value = response.data;
-          console.log('login success')
+          
+          router.push('/personalcenter');
+          console.log('login success');
+          // console.log(router);
         } catch (error) {
           console.log('login error')
         }
