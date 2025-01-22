@@ -14,35 +14,34 @@
 <script>
 import Header from '../components/Header.vue';
 import { ref } from 'vue';
-import axios from 'axios';
 import { useRouter } from 'vue-router';
-
-console.log(this)
+import { inject } from 'vue';
+import http from '../http/http'
 export default {
   components: {
     Header, 
   },
   setup() {
+    const store = inject('$store');
     const username=ref('')
     const password=ref('')
     const loginStatus = ref(null);
     const router = useRouter();
+    
       const  handleLogin = async()=>{
-        console.log('click login')
         try {
-          const response = await axios.post('http://192.168.1.2:3000/login',{
+          const response = await http.post('login',{
             username: username.value, 
             password: password.value 
           });
-          loginStatus.value = response.data;
-          
+          console.log(http)
+          loginStatus.value = response;
           router.push('/personalcenter');
+          store.commit('setUser', response)
           console.log('login success');
-          // console.log(router);
         } catch (error) {
           console.log('login error')
         }
-        
       };
       return {
         username,password,

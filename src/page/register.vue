@@ -19,7 +19,7 @@
 <script>
 import Header from '../components/Header.vue';
 import { ref } from 'vue';
-import axios from 'axios';
+import http from '../http/http';
 import { useRouter } from 'vue-router';
 export default {
   components: {
@@ -33,7 +33,7 @@ export default {
     const router = useRouter();
     const getVerifyCode=async()=>{
       try {
-          const response = await axios.get('http://192.168.1.2:3000/verifycode');
+          const response = await axios.get('verifycode');
           verifyCode.value = response.data;
           console.log('verifyCode success')
         } catch (error) {
@@ -42,7 +42,7 @@ export default {
     };
     const handleRegister=async()=>{
       try {
-          const response = await axios.post('http://192.168.1.2:3000/register',{
+          const response = await http.post('register',{
             username: username.value, 
             password: password.value 
           });

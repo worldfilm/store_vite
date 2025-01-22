@@ -1,11 +1,4 @@
-<script>
-import Header from '../components/Header.vue';
-export default {
-  components: {
-    Header
-  }
-};
-</script>
+
 <template>
      <Header/> 
     <div id="main">
@@ -31,3 +24,22 @@ export default {
         <div id="goto_regist"><router-link to="/register">立即注册</router-link></div>
     </div>
 </template>
+
+<script>
+
+import { inject } from 'vue';
+import Header from '../components/Header.vue';
+export default {
+    components: {
+    Header
+  },
+    setup() {
+        const store = inject('$store');
+        // console.log(store.state.user.user)
+       
+        return {
+            
+        }
+    },
+}
+</script>

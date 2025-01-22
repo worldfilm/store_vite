@@ -7,7 +7,20 @@
 <div id="shoppingcar">
     <div id="main">
         <ul id="shopping_list">
-
+            <li v-for="(item,index) in cartList" :key="item">
+                <div name="checkAll" class="select no_select select_ok"></div>
+                <div class="shopping_img">
+                    <router-link to="productdetails"><img :src="'http://192.168.1.7:3000/'+item.src+'.png'"></router-link>
+                </div>
+                <div class="shopping_box">
+                    <h2>{{item.name}}</h2>
+                    <div class="shopping_box_bottom">
+                        <div class="unit_price">￥<span>{{item.price}}</span></div>
+                        <div class="number">x<span>{{item.count}}</span></div>
+                    </div>
+                </div>
+                <div class="delete_btn" @click="deleteItem(item,index)"> <span ></span></div>
+            </li>
         </ul>
     </div>
     <div id="floatbar_bottom">
@@ -61,3 +74,31 @@
     <div class="btn_box" id="goto_shop"><a href="index.html">去逛逛</a></div>
 </div>
 </template>
+<script>
+import { useRouter } from 'vue-router';
+import { ref,inject } from 'vue';
+import http from '../http/http'
+export default {
+  components: {
+  },
+  setup(){
+    const store = inject('$store');
+    const cartList=store.state.shopping.cartList
+    
+    const deleteItem=(item,index)=>{
+        // console.log(item, index)
+        store.commit('deleteItemFromCart', item);
+        cartList.splice(index, 1);
+        // 
+        // for(let items in cartList){
+        //     if(cartList[items].name==item.name){
+        //         cartList.remove(cartList[items])
+        //     }
+        // }
+    };
+    return{
+        cartList,deleteItem
+    }
+  }
+}
+</script>

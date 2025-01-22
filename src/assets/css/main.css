@@ -1,11 +1,12 @@
 .wrapper{
 	background: #f5f5f5;
 }
-#header,#main_nav,.coupons_content,#category_title,#list_nav li,.purchase_num_box,#floatbar_bottom,#good_list li,.container,.ordinary_box,.coupons_list li,.pop_btn,.number_box,#order_inf_header,#shopping_list li,#pop_classify ul li,#pay_order li,#order_nav,.nopay_orderlist li,.haspay_orderlist li,#shopping_list li,.shopping_box_bottom,.number_content,#select_all,#recipient_inf .user_inf,#sucess_order li,#all_coupons_list li .coupons_list_top,#all_coupons_list li .couponslist_bottom,.couponslist_left,#all_mycoupons_list li .coupons_list_top,#all_mycoupons_list li .couponslist_bottom,#good_distribution .container_right,#user_inf .user_inf_con,.classify_main,#classify_list li,#input_box{
+#header,#main_nav,.coupons_content,#category_title,#list_nav li,#floatbar_bottom,#good_list li,.container,.ordinary_box,.coupons_list li,.pop_btn,.number_box,#order_inf_header,#shopping_list li,#pop_classify ul li,#pay_order li,#order_nav,.nopay_orderlist li,
+.haspay_orderlist li,#shopping_list li,.shopping_box_bottom,.number_content,#select_all,#recipient_inf .user_inf,#sucess_order li,#all_coupons_list li .coupons_list_top,#all_coupons_list li .couponslist_bottom,.couponslist_left,#all_mycoupons_list li .coupons_list_top,#all_mycoupons_list li .couponslist_bottom,#good_distribution .container_right,#user_inf .user_inf_con,.classify_main,#classify_list li,#input_box{
 	display: -webkit-box;
 	display:-moz-box;
 }
-#home,.coupons_l,#category_titletxt,.list_navtxt,.container_left,.ordinary_box_l,#select_all,#floatbar_bottom_l,.coupons_list_messg,.pop_sure_btn,.number_box input,.input_left2,#pop_classify ul li .text,#order_nav li,.shopping_box,.unit_price,.number_edit,.select_all_txt,#recipient_inf .user_inf .address_name,.couponslist_left,.coupons_time,#all_coupons_list .coupons_value,#all_mycoupons_list .coupons_value,#floatbar_bottom_cart,#classify_list,#input_box input{
+#home,.coupons_l,#category_titletxt,.list_navtxt,.container_left,.ordinary_box_l,#select_all,#floatbar_bottom_l,.coupons_list_messg,.pop_sure_btn,.number_box input,.input_left2,#pop_classify ul li .text,#order_nav li,.unit_price,.number_edit,.select_all_txt,#recipient_inf .user_inf .address_name,.couponslist_left,.coupons_time,#all_coupons_list .coupons_value,#all_mycoupons_list .coupons_value,#floatbar_bottom_cart,#classify_list,#input_box input{
 	-webkit-box-flex: 1;
 	-moz-box-flex:1;
 }
@@ -44,8 +45,7 @@
 	margin-bottom: 1.2rem;
 }
 /*新增*/
-.shopping_box{padding-left: 0.16rem;}
-.shopping_box_bottom{ padding-top: 0.06rem; }
+
 .unit_price,.shopping_box h2,.number,.number_edit{ color: #666; }
 .unit_price{
 	font-size: 0.3rem;
@@ -161,16 +161,8 @@
   text-align: left;
 }
 /*设置轮播图的大小*/
-#slideBox{ 
-	width: 100%;
-	height: 2.4rem;
-	position: relative;
-}
-#slideBox img{
-	width: 100%;
-	height: 2.4rem;
-	background: 100% auto;
-}
+
+
 	/*首页主导航*/
 #main_nav{
 	text-align: center;
@@ -376,10 +368,9 @@
 	text-align: left;
 }
 .product_box img{
-	width: 2.8rem;
-	height: 2.8rem;
-	background-size: 100% auto;
+	width: 2.85rem;
 }
+.product_box a{display: block;}
 .product_box h2 a{
 	font-size: 0.26rem;
 	color: #555;
@@ -547,12 +538,8 @@
 /*商品列表orderlist end*/
 /*商品详情页product_details start*/
 /*商品详情页轮播图*/
-#product_details #slideBox{
-	height: 6.4rem;
-}
-#product_details #slideBox img{
-	height: 6.4rem;
-}
+
+
 #product_details #point_toggle{
 	top: 4rem;
 }
@@ -834,6 +821,9 @@
 }
 #shopping_list li{
 	padding: 0.2rem 0.16rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 #shopping_list li:first-child{ border-top: none; }
 #shopping_list li .shopping_img img,.nopay_orderlist li .shopping_img img,.haspay_orderlist li .shopping_img img{
@@ -1375,9 +1365,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
 #classify_list .shopping_box{
 	padding-top: 0.08rem;
 }
-#classify_list .shopping_box_bottom{
-	padding-top: 0.2rem;
-}
+
 #classify_list .unit_price{
 	font-size: 0.26rem;
 	color: #ff7007;
@@ -1517,11 +1505,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
 .select .coupons_list_messg,.select .coupons_messg_time{
 	color: #ff7007 !important;
 }
-/*默认地址*/
-#your_address_list .select .no_select,#add_address .select .no_select{
-	background: #ff7007;
-	border:none;
-}
+
 /*省市选择文字样式切换*/
 .select_area{ color: #333 !important; }
 /*select状态下 end*/

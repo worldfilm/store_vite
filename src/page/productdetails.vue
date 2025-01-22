@@ -1,11 +1,4 @@
-<script>
-import Header from '../components/Header.vue';
-export default {
-  components: {
-    Header
-  }
-};
-</script>
+
 <template>
      <Header/> 
     <div id="main">
@@ -14,16 +7,8 @@ export default {
                 <div class="bd">
                   <ul>
                     <li>
-                        <a class="pic" href="#"><img src="../assets/page/images/pro_img1.png"/></a>
-                    </li>
-                    <li>
-                        <a class="pic" href="#"><img src="../assets/page/images/pro_img1.png"/></a>
-                    </li>
-                    <li>
-                        <a class="pic" href="#"><img src="../assets/page/images/pro_img1.png"/></a>
-                    </li>
-                    <li>
-                        <a class="pic" href="#"><img src="../assets/page/images/pro_img1.png"/></a>
+                        <img :src="'http://192.168.1.7:3000/'+imgSrc+'.png'"/>
+                        
                     </li>
                   </ul>
                 </div>
@@ -32,10 +17,10 @@ export default {
                 </div>
             </div>
             <div class="shopping_box">
-                <h2>果仁巧克力酱霜糖蛋糕 超美味果酱夹心蛋糕大减价超值选购/欢迎选购</h2>
+                <h2>{{imgName}}</h2>
                 <div class="shopping_box_bottom">
-                    <div class="unit_price">￥<span>32.00</span></div>
-                    <div class="number">剩余数量：<span>102</span></div>
+                    <div class="unit_price"><span> $ {{imgPrice}}</span></div>
+                    <div class="number">剩余数量：<span>{{imgCount}}</span></div>
                 </div>
             </div>
         </div>
@@ -43,9 +28,9 @@ export default {
             <div class="pro_content clearfix">
                 <div class="purchase_numtxt fl">购买数量</div>
                 <div class="purchase_num_box fr">
-                    <div class="minus_icon js_minus"></div>
-                    <div id="prd-num" class="number_edit js_num">1</div>
-                    <div class="add_icon js_add"></div>
+                    <div class="minus_icon js_minus" @click="minus"></div>
+                    <div id="prd-num" class="number_edit js_num">{{num}}</div>
+                    <div class="add_icon js_add" @click="add"></div>
                 </div>
             </div>
         </div>
@@ -59,12 +44,12 @@ export default {
         </div>
     </div>
     <div id="floatbar_bottom">
-        <div id="floatbar_bottom_cart">
+        <div id="floatbar_bottom_cart" @click="goShoppingCar">
             <a></a>
-            <div class="car_trolley dsn"></div>
+            <div class="car_trolley dsn">{{orderNum}}</div>
         </div>
-        <div id="join_car">加入购物车</div>
-        <div id="buy_now"><a>立即购买</a></div>
+        <div id="join_car" @click="addShoppingCar">加入购物车</div>
+        <div id="buy_now" @click="orderNow"><a>立即购买</a></div>
     </div>
     <!--+-数量弹框-->
     <div class="pop_wrapper dsn" id="add_minus_Pop">
@@ -87,3 +72,66 @@ export default {
         </div>
     </div>
 </template>
+<script>
+import Header from '../components/Header.vue';
+import { useRouter } from 'vue-router';
+import { ref,inject } from 'vue';
+export default {
+  components: {
+    Header
+  },
+  setup(){
+    const imgSrc=ref('')
+    const imgName=ref('')
+    const imgPrice=ref('')
+    const imgCount=ref(0)
+    const num=ref(1)
+    const router = useRouter(); 
+    const orderNum=ref('')
+    const store = inject('$store');
+    const isAuthenticated=store.state.user.user.token
+        imgName.value=router.currentRoute.value.query.name
+        imgPrice.value=router.currentRoute.value.query.price
+        imgSrc.value=router.currentRoute.value.query.src
+        imgCount.value=router.currentRoute.value.query.count
+        const addShoppingCar=()=>{
+            console.log('addShoppingCar')
+            if(isAuthenticated){
+                store.commit('set_cartList', {count:imgCount,name: imgName,price:imgPrice,src:imgSrc})
+            }else{
+                router.push("/login")
+            }
+            
+        }
+        const orderNow=()=>{
+            console.log('orderNow')
+            router.push("/myorderlist")
+        }
+        const goShoppingCar=()=>{
+            router.push('/shoppingcar')
+        }
+        const add=()=>{
+            if(router.currentRoute.value.query.count>0){
+                num.value++
+                imgCount.value=router.currentRoute.value.query.count--
+                imgPrice.value=num.value*router.currentRoute.value.query.price
+                console.log(router.currentRoute.value.query.count)
+                return num
+            }
+        }
+        const minus=()=>{
+            num.value--
+            if(num.value--<1){
+                return num.value=1
+            }else{
+                return num
+            }
+            
+        }
+        return {
+            imgName,imgPrice,imgSrc,addShoppingCar,
+            orderNow,add,minus,num,imgCount,orderNum,goShoppingCar
+        }
+  }
+};
+</script>

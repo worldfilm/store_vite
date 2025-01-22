@@ -29,7 +29,8 @@
                 <ul id="product_list" class="clearfix">
                     <li v-for="item in item_list">
                         <div class="product_box">
-                            <router-link to=""><img :src="'http://192.168.1.2:3000/'+item.src+'.png'"></router-link>
+                            <router-link :to="{path:'productdetails',query:{src:item.src,name:item.name,price:item.price,count:item.count}}"
+                            ><img :src="'http://192.168.1.7:3000/'+item.src+'.png'"></router-link>
                             <h2><router-link to="">{{item.name}}</router-link></h2>
                             <div class="clearfix">
                                 <div class="product_price fl">￥<span class="product_mpney">{{item.price}}</span></div>
@@ -75,7 +76,7 @@
 <script >
 import Header from '../components/Header.vue';
 import { ref } from 'vue';
-import axios from 'axios';
+import http from '../http/http';
 export default{
     components: {
     Header
@@ -84,8 +85,8 @@ export default{
         const item_list = ref([]);
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.1.2:3000/get_product_list');
-        item_list.value = response.data;
+        const response = await http.get('get_product_list');
+        item_list.value = response;
       } catch (error) {
         console.error('Error fetching data:', error);
       }
